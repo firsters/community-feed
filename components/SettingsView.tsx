@@ -140,8 +140,7 @@ export default function SettingsView() {
                 </button>
                 <button
                   onClick={() => setEditor({ open: true, mode: "edit", draft: { ...s } })}
-                  disabled={s.type === "builtin"}
-                  title={s.type === "builtin" ? "빌트인은 편집 불가 (이름/활성만)" : ""}
+                  title={s.type === "builtin" ? "빌트인 사이트는 이름과 로그인 설정만 변경할 수 있습니다." : ""}
                 >
                   편집
                 </button>
