@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>Community Feed Cookie Sync</title>
+  <style>
+    body { width: 320px; margin: 0; padding: 12px; font-family: -apple-system, "Segoe UI", "Apple SD Gothic Neo", sans-serif; font-size: 13px; background: #141821; color: #e7ecf3; }
+    h1 { font-size: 14px; margin: 0 0 10px; }
+    .row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #2a3143; }
+    .row:last-child { border-bottom: none; }
+    .name { font-weight: 500; }
+    .meta { font-size: 11px; color: #8d97a8; }
+    button { background: #4f8cff; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    button:hover { background: #3d77f0; }
+    button.ghost { background: transparent; border: 1px solid #2a3143; color: #e7ecf3; }
+    .input { width: 100%; padding: 4px 6px; border: 1px solid #2a3143; background: #1c2230; color: #e7ecf3; border-radius: 4px; font-size: 12px; margin-bottom: 8px; }
+    .actions { display: flex; gap: 6px; margin-top: 8px; }
+    .status { margin-top: 8px; font-size: 11px; color: #8d97a8; }
+    .status.ok { color: #28b487; }
+    .status.err { color: #ff5470; }
+  </style>
+</head>
+<body>
+  <h1>🍪 Cookie Sync</h1>
+  <div>로컬 앱 URL</div>
+  <input id="endpoint" class="input" value="http://localhost:3000" />
+  <div id="list"></div>
+  <div class="actions">
+    <button id="syncAll">전체 동기화</button>
+    <button id="reload" class="ghost">새로고침</button>
+  </div>
+  <div id="status" class="status"></div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

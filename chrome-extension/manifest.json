@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Community Feed Cookie Sync",
+  "version": "0.1.0",
+  "description": "로그인된 커뮤니티 사이트의 세션 쿠키를 로컬 앱으로 전송",
+  "permissions": ["cookies", "storage"],
+  "host_permissions": [
+    "*://*.clien.net/*",
+    "*://*.ppomppu.co.kr/*",
+    "*://*.fmkorea.com/*",
+    "*://*.dcinside.com/*",
+    "*://*.ruliweb.com/*",
+    "*://theqoo.net/*",
+    "*://*.bobaedream.co.kr/*",
+    "*://mlbpark.donga.com/*",
+    "http://localhost:3000/*",
+    "http://127.0.0.1:3000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Community Feed Cookie Sync"
+  },
+  "icons": {
+    "128": "icons/icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
