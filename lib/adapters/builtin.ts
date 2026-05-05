@@ -58,6 +58,14 @@ export const builtinDetailSelectors: Record<string, DetailSelectors> = {
     author: ".user",
     date: ".date",
   },
+  eomisae: {
+    body: "article .xe_content, .rd_body .xe_content",
+    removeInBody: ["script", "style"],
+    author: ".author, .side a",
+    date: ".date, .time",
+    commentList: ".fdb_lst_ul li.fdb_itm",
+    comment: { body: ".xe_content", author: ".member", date: ".date" },
+  },
 };
 
 // 사이트별 페이지 인코딩 — 본문 fetch 시 적용
@@ -214,6 +222,25 @@ export const builtinFetchers: Record<string, BuiltinFetcher> = {
       },
       ctx,
     ),
+
+  // 어미새 패션정보
+  eomisae: (site, ctx) =>
+    htmlAdapter.fetch(
+      {
+        ...site,
+        url: "https://eomisae.co.kr/fs",
+        selectors: {
+          list: "table._listA tbody tr:not(.notice)",
+          title: "td.title a.pjax",
+          link: "td.title a.pjax",
+          author: "td:nth-child(3)",
+          date: "td:nth-child(4)",
+          views: "td:nth-child(5)",
+          baseUrl: "https://eomisae.co.kr",
+        },
+      },
+      ctx,
+    ),
 };
 
 export const builtinSeeds: SiteConfig[] = [
@@ -225,4 +252,5 @@ export const builtinSeeds: SiteConfig[] = [
   { id: "theqoo", name: "더쿠 · 핫게시물", enabled: true, type: "builtin", builtinKey: "theqoo", needsCookie: false },
   { id: "bobaedream", name: "보배드림 · 베스트", enabled: true, type: "builtin", builtinKey: "bobaedream" },
   { id: "mlbpark", name: "MLBPark · 불펜 BEST", enabled: true, type: "builtin", builtinKey: "mlbpark" },
+  { id: "eomisae", name: "어미새 · 패션정보", enabled: true, type: "builtin", builtinKey: "eomisae" },
 ];
