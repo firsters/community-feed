@@ -7,28 +7,36 @@ import type { SiteConfig } from "./adapters/types";
 const FILE = path.join(process.cwd(), "data", "sites.json");
 
 async function ensureFile(): Promise<void> {
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
   try {
-    await fs.access(FILE);
-  } catch {
-    await fs.writeFile(FILE, JSON.stringify(builtinSeeds, null, 2), "utf-8");
+    await fs.mkdir(path.dirname(FILE), { recursive: true });
+    try {
+      await fs.access(FILE);
+    } catch {
+      await fs.writeFile(FILE, JSON.stringify(builtinSeeds, null, 2), "utf-8");
+    }
+  } catch (err) {
+    // Vercel 등 서버리스 환경(Read-only FS) 에러 무시
   }
 }
 
 export async function listSites(): Promise<SiteConfig[]> {
-  await ensureFile();
-  const text = await fs.readFile(FILE, "utf-8");
   try {
+    await ensureFile();
+    const text = await fs.readFile(FILE, "utf-8");
     const arr = JSON.parse(text) as SiteConfig[];
-    return Array.isArray(arr) ? arr : [];
+    return Array.isArray(arr) ? arr : builtinSeeds;
   } catch {
-    return [];
+    return builtinSeeds; // 파일이 없거나 읽을 수 없으면 기본 제공 사이트 반환
   }
 }
 
 export async function saveSites(sites: SiteConfig[]): Promise<void> {
-  await ensureFile();
-  await fs.writeFile(FILE, JSON.stringify(sites, null, 2), "utf-8");
+  try {
+    await ensureFile();
+    await fs.writeFile(FILE, JSON.stringify(sites, null, 2), "utf-8");
+  } catch (err) {
+    // Vercel 등 서버리스 환경(Read-only FS) 에러 무시
+  }
 }
 
 export async function getSite(id: string): Promise<SiteConfig | undefined> {
